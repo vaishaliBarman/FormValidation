@@ -1,92 +1,4 @@
- /*document.addEventListener('DOMContentLoaded', () => {
-    const form = document.querySelector('form');
-    const nameInput = document.getElementById('name');
-    const emailInput = document.getElementById('email');
-    const passwordInput = document.getElementById('password');
-    const ageInput = document.getElementById('age');
-    const addressInput = document.getElementById('address');
-    const phoneInput = document.getElementById('phone');
-
-    const nameError = document.getElementById('nameError');
-    const emailError = document.getElementById('emailError');
-    const passwordError = document.getElementById('passError');
-    const ageError = document.getElementById('ageError');
-    const addressError = document.getElementById('addressError');
-    const phoneError = document.getElementById('phoneError');
-
-    // Toggle password visibility
-    const togglePassword = document.getElementById('togglePassword');
-    togglePassword.addEventListener('click', () => {
-        const type = passwordInput.type === 'password' ? 'text' : 'password';
-        passwordInput.type = type;
-        togglePassword.textContent = type === 'password' ? '👁️' : '👁️‍🗨️';
-    });
-
-    form.addEventListener('submit', (e) => {
-        e.preventDefault(); // Prevent form from submitting by default
-        let isValid = true;
-
-        // Name Validation (Letters and spaces only)
-        const nameRegex = /^[a-zA-Z\s]+$/;
-        if (!nameRegex.test(nameInput.value.trim())) {
-            nameError.textContent = "Name should contain only letters.";
-            isValid = false;
-        } else {
-            nameError.textContent = "";
-        }
-
-        // Email Validation (Lowercase and end with @gmail.com or @navgurukul.com)
-        const emailRegex = /^[a-z0-9._%+-]+@(gmail\.com|navgurukul\.com)$/;
-        if (!emailRegex.test(emailInput.value.toLowerCase())) {
-            emailError.textContent = "Please enter a valid email address.";
-            isValid = false;
-        } else {
-            emailError.textContent = "";
-        }
-
-        // Password Validation (Minimum 4 characters)
-        if (passwordInput.value.length < 4) {
-            passwordError.textContent = "Password must be at least 4 characters long.";
-            isValid = false;
-        } else {
-            passwordError.textContent = "";
-        }
-
-        // Age Validation (Between 18 and 65 inclusive)
-        const ageValue = parseInt(ageInput.value, 10);
-        if (isNaN(ageValue) || ageValue < 18 || ageValue > 65) {
-            ageError.textContent = "Age must be between 18 and 65.";
-            isValid = false;
-        } else {
-            ageError.textContent = "";
-        }
-
-        // Address Validation (Cannot be empty)
-        if (addressInput.value.trim() === "") {
-            addressError.textContent = "Address cannot be empty.";
-            isValid = false;
-        } else {
-            addressError.textContent = "";
-        }
-
-        // Phone Validation (Exactly 10 digits)
-        const phoneRegex = /^[0-9]{10}$/;
-        if (!phoneRegex.test(phoneInput.value)) {
-            phoneError.textContent = "Phone number must be exactly 10 digits.";
-            isValid = false;
-        } else {
-            phoneError.textContent = "";
-        }
-
-        // If form is valid, show a success message
-        if (isValid) {
-            alert("Form submitted successfully!");
-            form.reset(); // Optional: Reset the form
-        }
-    });
-})
-*/
-document.addEventListener('DOMContentLoaded', () => {
+ document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('form');
     const nameInput = document.getElementById('name');
     const emailInput = document.getElementById('email');
@@ -124,9 +36,20 @@ document.addEventListener('DOMContentLoaded', () => {
         let isValid = validateForm();
 
         // If form is valid, show a success message
-        if (isValid) {
-            alert("Form submitted successfully!");
-            form.reset(); // Optional: Reset the form
+         if (isValid) {
+            const userData = {
+                name: nameInput.value,
+                email: emailInput.value,
+                password: passwordInput.value,  // Storing the password (be cautious with this)
+                age: ageInput.value,
+                phone: phoneInput.value
+            };
+
+            // Save user data to local storage
+            localStorage.setItem('userCredentials', JSON.stringify(userData));
+
+            alert("Form submitted successfully and data stored!");
+            form.reset(); // Reset the form after submission
         }
     });
 
